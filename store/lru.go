@@ -34,7 +34,11 @@ func newLRUStore(opt Options) *lRUStore {
 		cleanupInterval: opt.CleanupInterval,
 		closeCh:         make(chan bool),
 		cleanupTicker:   time.NewTicker(opt.CleanupInterval),
+		onEvicted:       opt.OnEvicted,
 	}
+
+	go store.CleanupStore()
+
 	return store
 }
 

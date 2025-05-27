@@ -26,12 +26,14 @@ const (
 type Options struct {
 	MaxBytes        int64
 	CleanupInterval time.Duration
+	OnEvicted       func(key string, value Value) // Callback when an item is evicted
 }
 
 func DefaultOptions() Options {
 	return Options{
 		MaxBytes:        8 * 1024 * 1024, // 8MB
 		CleanupInterval: time.Minute,
+		OnEvicted:       nil,
 	}
 }
 
